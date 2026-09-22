@@ -1,0 +1,17 @@
+services:
+  db:
+    
+    image: postgres:18
+
+    container_name: postgres_db
+
+    restart: unless-stopped
+
+    ports:
+      - "5433:5432"
+
+    environment:
+      POSTGRES_DB: ia_project
+      POSTGRES_USER: ia_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
