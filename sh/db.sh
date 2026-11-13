@@ -1,0 +1,1 @@
+docker exec -it postgres_db psql -U ia_user -d ia_project
