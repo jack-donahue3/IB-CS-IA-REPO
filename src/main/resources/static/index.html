@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Teacher Dashboard</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Teacher Dashboard</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 <body>
-    <form action="/api/assignments" method="POST">
-        <input type="text" name="title" placeholder="Title" required>
-        <textarea name="description" placeholder="Description"></textarea>
-        <input type="datetime-local" name="dueDate">
-        <input type="number" name="points" placeholder="Points">
+    <h1>Teacher Dashboard</h1>
+    <p>Logged in as: <span id="user-name"></span> <button id="logout-button">Logout</button></p>
+
+    <h2>Create Assignment</h2>
+    <form id="create-assignment-form">
+        <input type="text" id="title" placeholder="Title" required>
+        <textarea id="description" placeholder="Description"></textarea>
+        <input type="datetime-local" id="dueDate">
+        <input type="number" id="points" placeholder="Points">
         <button type="submit">Create Assignment</button>
     </form>
 
-    <script>
-        fetch('/api/assignments')
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    </script>
+    <h2>Assignments</h2>
+    <ul id="assignments-list"></ul>
+
+    <script src="app.js"></script>
+    
 </body>
 </html>
