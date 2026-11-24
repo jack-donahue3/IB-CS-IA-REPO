@@ -51,7 +51,7 @@ document.getElementById('create-assignment-form').addEventListener('submit', asy
         loadAssignments();
     }
     else {
-        alert('Failed to create assignment');
+        alert(await response.text());
     }
 });
 

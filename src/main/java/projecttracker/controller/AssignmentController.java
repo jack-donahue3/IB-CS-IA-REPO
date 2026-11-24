@@ -1,5 +1,7 @@
 package projecttracker.controller;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,7 +22,7 @@ public class AssignmentController {
     }
 
     //json format endpoints will follow
-    public record AssignmentRequest(String title, String description, LocalDateTime dueDate, Integer points, Integer creatorId) {}
+    public record AssignmentRequest(String title, String description, LocalDateTime dueDate, Integer points) {}
 
     //Get all request
     @GetMapping
@@ -33,8 +35,10 @@ public class AssignmentController {
     //post assignment request
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Assignment create(@RequestBody AssignmentRequest request) {
-        return assignmentService.create(request.title(), request.description(), request.dueDate(), request.points(), request.creatorId());
+    public Assignment create(@RequestBody AssignmentRequest request, HttpSession session) {
+        Integer userID= (Integer) session.getAttribute("userId");
+        if (userID==null) {throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User isnt logged in");}
+        return assignmentService.create(request.title(), request.description(), request.dueDate(), request.points(), userID);
     }
 
     //put assignment request
